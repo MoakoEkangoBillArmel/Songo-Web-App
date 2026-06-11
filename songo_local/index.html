@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Songo - Plateau Traditionnel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="conteneur-jeu">
+        <div class="barre-outils">
+            <span class="info-auteur">Auteur : MOAKO EKANGO BILL ARMEL - Matricule : 24F2686</span>
+            <button id="bouton-regles" title="Afficher les règles">?</button>
+        </div>
+        
+        <h1>Songo - Plateau Traditionnel</h1>
+        
+        <div id="configuration-joueurs">
+            <div class="saisie-nom">
+                <label>Joueur 1 (Sud) : <input type="text" id="nom-j1" value="Sud" maxlength="15"></label>
+            </div>
+            <div class="saisie-nom">
+                <label>Joueur 2 (Nord) : <input type="text" id="nom-j2" value="Nord" maxlength="15"></label>
+            </div>
+        </div>
+
+        <div id="zone-alertes" style="display: none;"></div>
+        <div id="indicateur-tour">Tour : Joueur 1 (Sud)</div>
+        
+        <div id="plateau">
+            
+            <div class="grenier-conteneur">
+                <div class="grenier-label top"><span id="label-nom-j2">Nord</span></div>
+                <div class="grenier" id="grenier-gauche">
+                    <div class="grenier-stat">
+                        <span class="grenier-icone">🏺</span>
+                        <span class="grenier-valeur" id="graines-restantes-j2">35</span>
+                        <span class="grenier-sous-label">restantes</span>
+                    </div>
+                    <div class="grenier-separateur"></div>
+                    <div class="grenier-stat">
+                        <span class="grenier-icone">🏆</span>
+                        <span class="grenier-valeur" id="prises-j2">0</span>
+                        <span class="grenier-sous-label">prises</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="zone-cases">
+                
+                <div class="rangee nord">
+                    <div class="case" id="case-7">5</div>
+                    <div class="case" id="case-8">5</div>
+                    <div class="case" id="case-9">5</div>
+                    <div class="case" id="case-10">5</div>
+                    <div class="case" id="case-11">5</div>
+                    <div class="case" id="case-12">5</div>
+                    <div class="case" id="case-13">5</div>
+                </div>
+                
+                <div class="rangee sud">
+                    <div class="case" id="case-0">5</div>
+                    <div class="case" id="case-1">5</div>
+                    <div class="case" id="case-2">5</div>
+                    <div class="case" id="case-3">5</div>
+                    <div class="case" id="case-4">5</div>
+                    <div class="case" id="case-5">5</div>
+                    <div class="case" id="case-6">5</div>
+                </div>
+            </div>
+
+            <div class="grenier-conteneur">
+                <div class="grenier-label top"><span id="label-nom-j1">Sud</span></div>
+                <div class="grenier" id="grenier-droite">
+                    <div class="grenier-stat">
+                        <span class="grenier-icone">🏺</span>
+                        <span class="grenier-valeur" id="graines-restantes-j1">35</span>
+                        <span class="grenier-sous-label">restantes</span>
+                    </div>
+                    <div class="grenier-separateur"></div>
+                    <div class="grenier-stat">
+                        <span class="grenier-icone">🏆</span>
+                        <span class="grenier-valeur" id="prises-j1">0</span>
+                        <span class="grenier-sous-label">prises</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="commandes">
+            <button id="bouton-reinitialiser">Réinitialiser</button>
+            <button id="bouton-demo">Mode Démo</button>
+            <button id="bouton-ajouter-graines">+10 graines (Test 13+)</button>
+        </div>
+    </div>
+
+    <div id="modal-regles">
+        <div class="modal-contenu">
+            <span class="fermer-modal">&times;</span>
+            <h2>Règles du Songo</h2>
+            <div class="modal-texte">
+                <p><strong>But du jeu :</strong> Capturer un maximum de graines. La partie s'arrête si un joueur atteint 40 graines, si le plateau a moins de 10 graines ou si on ne peut pas nourrir l'adversaire.</p>
+                
+                <h3>1. Distribution</h3>
+                <p>Le jeu se joue dans le sens anti-horaire. Dans votre camp, on sème de droite à gauche. Chez l'adversaire, de gauche à droite.</p>
+                
+                <h3>2. Règle des 13+ (Abôm)</h3>
+                <p>Si la case a 13 graines ou plus, la case de départ reste vide et l'excédent se distribue seulement dans le camp adverse de gauche à droite.</p>
+                
+                <h3>3. Captures</h3>
+                <p>Les prises se font uniquement chez l'adversaire. Si la dernière graine tombe dans une case avec 1, 2 ou 3 graines (2, 3 ou 4 au final), vous les prenez. On capture en chaîne en remontant si la condition est respectée.</p>
+                <p><strong>Case 1 (extrême gauche adverse) :</strong> Pas de prise normale sauf en chaîne. Si on s'y arrête après au moins 1 tour, on prend juste 1 graine.</p>
+                
+                <h3>4. Solidarité</h3>
+                <p>Si l'adversaire n'a plus de graines, on doit jouer un coup qui lui donne au moins 7 graines. Si impossible, on donne le max. Si on ne peut rien donner, c'est la fin de partie.</p>
+                
+                <h3>5. Interdits</h3>
+                <ul>
+                    <li><strong>Case 7 :</strong> Interdit d'y jouer 1 ou 2 graines depuis sa dernière case. Sauf si forcé, mais l'adversaire gagne ces graines.</li>
+                    <li><strong>Famine interdite :</strong> On ne peut pas vider complètement le camp de l'adversaire. La prise est annulée dans ce cas.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

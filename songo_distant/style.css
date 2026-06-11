@@ -1,0 +1,835 @@
+/* Auteur : MOAKO EKANGO BILL ARMEL - Matricule : 24F2686 */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #180d07;
+    background-image:
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.015) 0px, transparent 1px, transparent 80px),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.015) 0px, transparent 1px, transparent 80px),
+        linear-gradient(135deg, #6d3a1a 0%, #180d07 60%, #3b1a0b 100%);
+    color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Outfit', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#conteneur-jeu {
+    text-align: center;
+    background: linear-gradient(160deg, #4a2416 0%, #2e1208 100%);
+    padding: 22px 30px 28px 30px;
+    border-radius: 22px;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.75),
+        0 0 0 4px #6d3a1a,
+        0 0 0 6px #251009,
+        inset 0 2px 4px rgba(255, 200, 100, 0.07);
+    margin: 20px auto;
+    box-sizing: border-box;
+    width: fit-content;
+}
+
+/* --- Barre outils --- */
+.barre-outils {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #5d3218;
+    padding-bottom: 8px;
+}
+
+.info-auteur {
+    font-size: 0.75rem;
+    color: #a17850;
+    font-style: italic;
+    letter-spacing: 0.03em;
+}
+
+#bouton-regles {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffca7a, #e67e22);
+    color: #1e130c;
+    border: 2px solid #c8780a;
+    font-weight: 900;
+    font-size: 0.95rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    transition: all 0.2s;
+    line-height: 1;
+}
+
+#bouton-regles:hover {
+    transform: scale(1.12);
+    background: linear-gradient(135deg, #ffe09a, #f39c12);
+}
+
+/* --- Titre --- */
+h1 {
+    margin: 6px 0 14px 0;
+    font-size: 1.85rem;
+    color: #e8c88a;
+    text-shadow: 0 3px 8px rgba(0,0,0,0.7), 0 1px 0 #8b4510;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+}
+
+/* --- Config joueurs --- */
+#configuration-joueurs {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 14px;
+    background: rgba(0,0,0,0.3);
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid #4e2a12;
+}
+
+.saisie-nom {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+}
+
+.saisie-nom label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #d4a060;
+    white-space: nowrap;
+}
+
+.saisie-nom input {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid #6d3a1a;
+    color: #f0d9a0;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    width: 90px;
+    outline: none;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+    transition: border-color 0.2s;
+}
+
+.saisie-nom input:focus {
+    border-color: #d4a060;
+}
+
+/* --- Zone alertes --- */
+#zone-alertes {
+    min-height: 38px;
+    margin-bottom: 12px;
+    padding: 7px 14px;
+    font-weight: bold;
+    color: #ffc56b;
+    background: rgba(200, 60, 0, 0.2);
+    border: 1px solid #c0440a;
+    border-radius: 6px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.88rem;
+    line-height: 1.4;
+}
+
+/* --- Indicateur de tour --- */
+#indicateur-tour {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+    padding: 7px 18px;
+    background: linear-gradient(90deg, #5d3218, #3b1a0b);
+    border-radius: 6px;
+    color: #ffc56b;
+    display: inline-block;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,200,100,0.1);
+    letter-spacing: 0.03em;
+}
+
+/* =============================================
+   PLATEAU : row avec greniers de chaque côté
+   ============================================= */
+#plateau {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 14px;
+    margin: 0 auto 16px auto;
+    padding: 18px;
+    background:
+        repeating-linear-gradient(
+            92deg,
+            rgba(255,255,255,0.018) 0px, transparent 2px, transparent 24px
+        ),
+        linear-gradient(175deg, #5a2d0c 0%, #2a0f04 50%, #4a2010 100%);
+    border: 6px solid #1a0903;
+    border-radius: 18px;
+    box-shadow:
+        inset 0 12px 30px rgba(0,0,0,0.85),
+        inset 0 -4px 12px rgba(0,0,0,0.5),
+        0 8px 24px rgba(0,0,0,0.6),
+        0 0 0 2px #6d3a1a;
+    width: fit-content;
+}
+
+/* --- Zone centrale avec les 14 cases --- */
+.zone-cases {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: center;
+}
+
+.rangee {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+}
+
+/* --- Cases individuelles (trous sculptés dans le bois) --- */
+.case {
+    width: 58px;
+    height: 58px;
+    background:
+        radial-gradient(circle at 35% 30%, #2a1008 0%, #0f0400 65%, #1c0802 100%);
+    border: 2.5px solid #3a1a08;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: #e8a045;
+    text-shadow: 0 1px 6px rgba(0,0,0,1);
+    cursor: pointer;
+    user-select: none;
+    box-shadow:
+        inset 0 6px 18px rgba(0,0,0,0.95),
+        inset 0 -2px 4px rgba(255,200,80,0.04),
+        0 2px 6px rgba(0,0,0,0.6),
+        0 0 0 1px rgba(255,255,255,0.03);
+    transition: all 0.2s ease-in-out;
+    position: relative;
+}
+
+/* Reflet subtil en haut à gauche pour simuler la profondeur */
+.case::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 18%;
+    width: 30%;
+    height: 20%;
+    background: radial-gradient(ellipse, rgba(255,200,80,0.06) 0%, transparent 100%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.case:hover {
+    border-color: #7a4420;
+}
+
+.case.rangee-active {
+    border-color: #d4900a;
+    box-shadow:
+        inset 0 6px 18px rgba(0,0,0,0.95),
+        0 0 10px rgba(210, 140, 20, 0.45),
+        0 0 20px rgba(210, 140, 20, 0.2);
+    color: #ffd070;
+}
+
+.case.rangee-active:hover {
+    transform: scale(1.06);
+    box-shadow:
+        inset 0 6px 18px rgba(0,0,0,0.95),
+        0 0 16px rgba(210, 140, 20, 0.6),
+        0 0 30px rgba(210, 140, 20, 0.25);
+}
+
+.case.mise-en-valeur {
+    background: radial-gradient(circle at 35% 30%, #c06000 0%, #8b3a00 100%);
+    border-color: #ffca40;
+    color: #ffffff;
+    box-shadow: 0 0 18px rgba(230, 130, 0, 0.8), inset 0 2px 6px rgba(0,0,0,0.5);
+    transform: scale(1.06);
+}
+
+.case.en-cours-distribution {
+    background: radial-gradient(circle at 35% 30%, #1a5c20 0%, #0a2e10 100%);
+    border-color: #5aad60;
+    color: #b0ffb5;
+    box-shadow: 0 0 16px rgba(50, 180, 70, 0.75), inset 0 2px 6px rgba(0,0,0,0.5);
+    transform: scale(1.04);
+}
+
+/* --- Greniers latéraux (trous de stockage des stats) --- */
+.grenier-conteneur {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-width: 68px;
+}
+
+.grenier-label {
+    font-size: 0.72rem;
+    color: #a17850;
+    text-align: center;
+    line-height: 1.4;
+    font-style: italic;
+    font-weight: 700;
+    color: #d4a060;
+    letter-spacing: 0.03em;
+}
+
+.grenier-label.top {
+    margin-bottom: 2px;
+}
+
+.grenier {
+    width: 62px;
+    /* Hauteur adaptée : 2 cases (58px) + gap (16px) = 132px */
+    height: 132px;
+    background:
+        radial-gradient(ellipse at 40% 15%, #1c0802 0%, #0a0200 80%);
+    border: 2.5px solid #3a1a08;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 8px 4px;
+    box-shadow:
+        inset 0 10px 30px rgba(0,0,0,0.98),
+        inset 0 -2px 6px rgba(255,200,80,0.03),
+        0 2px 8px rgba(0,0,0,0.7),
+        0 0 0 1px rgba(255,255,255,0.02);
+    box-sizing: border-box;
+}
+
+.grenier-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+    line-height: 1.1;
+}
+
+.grenier-icone {
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.grenier-valeur {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #ffca40;
+    text-shadow: 0 0 8px rgba(255, 180, 0, 0.5);
+    line-height: 1;
+}
+
+.grenier-sous-label {
+    font-size: 0.6rem;
+    color: #a17850;
+    font-style: italic;
+    white-space: nowrap;
+}
+
+.grenier-separateur {
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #5d3218, transparent);
+    margin: 2px 0;
+}
+
+/* --- Commandes --- */
+.commandes {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+
+button {
+    padding: 9px 18px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 7px;
+    border: 1px solid #4e2a12;
+    background: linear-gradient(160deg, #6d3a1a, #3b1a0b);
+    color: #e8c88a;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,200,100,0.08);
+    transition: all 0.18s;
+    outline: none;
+}
+
+button:hover {
+    background: linear-gradient(160deg, #7a4220, #4a2010);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.5);
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+#bouton-demo {
+    background: linear-gradient(160deg, #2d6e30, #153818);
+    border-color: #1b5020;
+    color: #b0ffb5;
+}
+
+#bouton-demo:hover {
+    background: linear-gradient(160deg, #3a8040, #1e4a20);
+}
+
+#bouton-demo.demo-actif {
+    background: linear-gradient(160deg, #8c1c1c, #4a0a0a);
+    border-color: #a01010;
+    color: #ffaaaa;
+    animation: flash 1s infinite alternate;
+}
+
+#bouton-ajouter-graines {
+    background: linear-gradient(160deg, #8a2f10, #4a1408);
+    border-color: #702010;
+    color: #ffcaa0;
+}
+
+#bouton-ajouter-graines:hover {
+    background: linear-gradient(160deg, #a03614, #5a1a0a);
+}
+
+/* --- Modale --- */
+#modal-regles {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-contenu {
+    background: linear-gradient(160deg, #4a2416, #2e1208);
+    border: 2px solid #d4900a;
+    border-radius: 14px;
+    width: 500px;
+    max-width: 92%;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.7);
+    animation: zoom 0.25s;
+    box-sizing: border-box;
+}
+
+.fermer-modal {
+    color: #d4900a;
+    float: right;
+    font-size: 26px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 14px;
+    margin-top: 10px;
+    line-height: 1;
+}
+
+.fermer-modal:hover {
+    color: #ffca40;
+}
+
+.modal-contenu h2 {
+    color: #e8c070;
+    text-align: center;
+    margin-top: 18px;
+    font-size: 1.3rem;
+}
+
+.modal-texte {
+    padding: 8px 22px 22px 22px;
+    max-height: 420px;
+    overflow-y: auto;
+    text-align: left;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: #d5c5a5;
+}
+
+.modal-texte h3 {
+    color: #e8a045;
+    margin-top: 14px;
+    margin-bottom: 4px;
+    font-size: 1rem;
+}
+
+.modal-texte ul {
+    margin-top: 4px;
+    padding-left: 18px;
+}
+
+.modal-texte p {
+    margin: 6px 0;
+}
+
+@keyframes zoom {
+    from { transform: scale(0.85); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes flash {
+    from { opacity: 1; }
+    to { opacity: 0.65; }
+}
+
+/* =============================================
+   RESPONSIVE — Tablette (≤ 768px)
+   ============================================= */
+@media (max-width: 768px) {
+    html, body {
+        align-items: flex-start;
+        padding: 0;
+    }
+
+    #conteneur-jeu {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+        padding: 16px 12px 20px 12px;
+        box-shadow: none;
+        box-sizing: border-box;
+    }
+
+    h1 {
+        font-size: 1.45rem;
+        margin: 4px 0 10px 0;
+    }
+
+    #configuration-joueurs {
+        flex-direction: column;
+        gap: 8px;
+        align-items: stretch;
+    }
+
+    .saisie-nom {
+        justify-content: space-between;
+    }
+
+    .saisie-nom input {
+        width: 110px;
+    }
+
+    /* Plateau horizontal mais réduit */
+    #plateau {
+        gap: 8px;
+        padding: 12px 8px;
+        width: 100%;
+        box-sizing: border-box;
+        justify-content: center;
+    }
+
+    .case {
+        width: 48px;
+        height: 48px;
+        font-size: 1.05rem;
+    }
+
+    .rangee {
+        gap: 8px;
+    }
+
+    .zone-cases {
+        gap: 12px;
+    }
+
+    /* Greniers latéraux */
+    .grenier {
+        width: 54px;
+        height: 108px; /* 2×48 + 12 gap */
+    }
+
+    .grenier-conteneur {
+        min-width: 56px;
+    }
+
+    .grenier-valeur {
+        font-size: 1.1rem;
+    }
+
+    .grenier-icone {
+        font-size: 0.75rem;
+    }
+
+    .grenier-label {
+        font-size: 0.65rem;
+    }
+
+    .grenier-sous-label {
+        font-size: 0.55rem;
+    }
+
+    /* Boutons */
+    .commandes {
+        gap: 8px;
+    }
+
+    button {
+        padding: 8px 12px;
+        font-size: 0.82rem;
+    }
+
+    .modal-contenu {
+        width: 95%;
+    }
+}
+
+/* =============================================
+   RESPONSIVE — Petit mobile (≤ 480px)
+   ============================================= */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    .info-auteur {
+        font-size: 0.65rem;
+    }
+
+    #indicateur-tour {
+        font-size: 0.85rem;
+        padding: 5px 12px;
+    }
+
+    /* Cases encore plus petites */
+    .case {
+        width: 38px;
+        height: 38px;
+        font-size: 0.9rem;
+        border-width: 2px;
+    }
+
+    .rangee {
+        gap: 5px;
+    }
+
+    .zone-cases {
+        gap: 8px;
+    }
+
+    /* Greniers adaptés */
+    .grenier {
+        width: 44px;
+        height: 84px; /* 2×38 + 8 gap */
+        padding: 6px 2px;
+        border-radius: 22px;
+    }
+
+    .grenier-conteneur {
+        min-width: 46px;
+        gap: 4px;
+    }
+
+    .grenier-valeur {
+        font-size: 0.95rem;
+    }
+
+    .grenier-icone {
+        font-size: 0.65rem;
+    }
+
+    .grenier-label {
+        font-size: 0.58rem;
+    }
+
+    .grenier-sous-label {
+        font-size: 0.5rem;
+    }
+
+    .grenier-separateur {
+        width: 28px;
+    }
+
+    #plateau {
+        gap: 5px;
+        padding: 8px 4px;
+    }
+
+    /* Boutons en colonne sur très petit écran */
+    .commandes {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+    }
+
+    button {
+        padding: 10px 8px;
+        font-size: 0.82rem;
+        width: 100%;
+    }
+
+    .modal-texte {
+        padding: 8px 14px 16px 14px;
+        font-size: 0.82rem;
+        max-height: 60vh;
+    }
+
+    .modal-contenu h2 {
+        font-size: 1.1rem;
+        margin-top: 14px;
+    }
+}
+
+/* =============================================
+   RESPONSIVE — Très petit mobile (≤ 360px)
+   ============================================= */
+@media (max-width: 360px) {
+    .case {
+        width: 34px;
+        height: 34px;
+        font-size: 0.82rem;
+    }
+
+    .rangee {
+        gap: 4px;
+    }
+
+    .zone-cases {
+        gap: 7px;
+    }
+
+    .grenier {
+        width: 38px;
+        height: 75px;
+        border-radius: 18px;
+    }
+
+    .grenier-conteneur {
+        min-width: 40px;
+    }
+
+    .grenier-valeur {
+        font-size: 0.85rem;
+    }
+
+    h1 {
+        font-size: 1.05rem;
+    }
+}
+
+/* =============================================
+   RESEAU (Songo Distant)
+   ============================================= */
+#banniere-reseau {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 8px 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #4e2a12;
+    font-size: 0.9rem;
+}
+
+#banniere-reseau.connecte {
+    border-color: #5aad60;
+    box-shadow: 0 0 10px rgba(90, 173, 96, 0.3);
+}
+
+#statut-reseau {
+    color: #ff5555;
+    font-weight: bold;
+}
+
+#banniere-reseau.connecte #statut-reseau {
+    color: #5aad60;
+}
+
+#statut-joueur-id {
+    color: #d4a060;
+    font-style: italic;
+    font-weight: bold;
+}
+
+#panneau-connexion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    background: rgba(0,0,0,0.3);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #4e2a12;
+}
+
+#nom-joueur {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid #6d3a1a;
+    color: #f0d9a0;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 1rem;
+    outline: none;
+}
+
+#overlay-attente {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 10;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #e8c88a;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.spinner {
+    margin-top: 15px;
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(232, 200, 138, 0.3);
+    border-radius: 50%;
+    border-top-color: #e8c88a;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.tour-pulse {
+    animation: tourPulse 1.5s infinite alternate;
+}
+
+@keyframes tourPulse {
+    from { box-shadow: 0 3px 8px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,200,100,0.1); }
+    to { box-shadow: 0 0 15px rgba(90, 173, 96, 0.6), inset 0 1px 1px rgba(255,200,100,0.1); }
+}
+

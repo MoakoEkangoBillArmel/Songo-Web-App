@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Songo - Presentation</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background: #111;
+    color: #f5f5f5;
+}
+
+.slide {
+    width: 960px;
+    height: 540px;
+    background: #07100d;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+    break-after: page;
+    margin: 0 auto 4px auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Bandes decoratives */
+.top-bar { position: absolute; top: 0; left: 0; right: 0; height: 6px; background: #ffca40; }
+.bot-bar { position: absolute; bottom: 0; left: 0; right: 0; height: 6px; background: #ffca40; }
+.left-bar { position: absolute; top: 0; left: 0; width: 6px; bottom: 0; background: #ffca40; }
+.right-bar { position: absolute; top: 0; right: 0; width: 6px; bottom: 0; background: #ffca40; }
+
+.slide-num {
+    position: absolute;
+    bottom: 12px;
+    right: 20px;
+    font-size: 11px;
+    color: #5d3218;
+}
+
+/* ====== SLIDE 1 : TITRE ====== */
+.s1 { background: radial-gradient(ellipse at 50% 80%, #4a2010 0%, #07100d 70%); justify-content: center; align-items: center; }
+
+.s1 .card {
+    border: 2px solid #ffca40;
+    border-radius: 16px;
+    width: 680px;
+    padding: 40px 50px;
+    text-align: center;
+    background: rgba(15, 20, 10, 0.6);
+}
+
+.s1 .game-title {
+    font-size: 96px;
+    font-weight: 900;
+    color: #ffca40;
+    text-shadow: 0 0 40px rgba(255,200,60,0.4);
+    line-height: 1;
+}
+
+.s1 .subtitle {
+    font-size: 22px;
+    color: #e8c88a;
+    margin: 12px 0 20px 0;
+    font-weight: 300;
+}
+
+.s1 .divider { height: 3px; background: linear-gradient(90deg, transparent, #e8a045, transparent); margin: 0 60px; }
+
+.s1 .author {
+    font-size: 16px;
+    color: #e8a045;
+    font-weight: 700;
+    margin-top: 18px;
+}
+.s1 .module { font-size: 13px; color: #888; margin-top: 6px; }
+
+/* ====== SLIDE 2 : PLAN ====== */
+.s2 { background: linear-gradient(160deg, #4a2010 0%, #07100d 60%); }
+.slide-header { padding: 20px 40px 0 40px; }
+.slide-header h2 { font-size: 30px; color: #ffca40; font-weight: 700; }
+.slide-header .underline { height: 3px; width: 200px; background: #e8a045; margin-top: 8px; }
+
+.plan-items { padding: 22px 40px; display: flex; flex-direction: column; gap: 14px; }
+.plan-item {
+    display: flex;
+    align-items: center;
+    background: rgba(74, 36, 22, 0.5);
+    border: 1px solid #5d3218;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.plan-num {
+    background: rgba(255, 202, 64, 0.1);
+    border-right: 1px solid #5d3218;
+    width: 70px;
+    min-width: 70px;
+    padding: 16px 0;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 900;
+    color: #ffca40;
+}
+.plan-text { padding: 10px 20px; }
+.plan-text strong { color: #e8c88a; font-size: 16px; display: block; }
+.plan-text span { color: #80a080; font-size: 13px; }
+
+/* ====== SLIDE 3 : FONCTIONNEMENT ====== */
+.s3 { background: linear-gradient(160deg, #4a2010 0%, #07100d 60%); }
+
+.plateau-schema {
+    margin: 10px 40px;
+    background: rgba(74, 36, 22, 0.4);
+    border: 1px solid #5d3218;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+}
+.board-row { display: flex; justify-content: center; gap: 6px; }
+.board-case {
+    width: 42px; height: 30px;
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700;
+}
+.nord { background: rgba(90, 173, 96, 0.3); border: 1px solid #5aad60; color: #5aad60; }
+.sud { background: rgba(232, 160, 69, 0.3); border: 1px solid #e8a045; color: #e8a045; }
+.board-label { font-size: 12px; color: #888; margin: 4px 0; }
+
+.rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 10px 40px; }
+.rule-card {
+    background: rgba(74, 36, 22, 0.4);
+    border: 1px solid #5d3218;
+    border-radius: 8px;
+    padding: 12px 16px;
+}
+.rule-card h4 { color: #e8a045; font-size: 13px; margin-bottom: 6px; }
+.rule-card p { color: #e8c88a; font-size: 12px; line-height: 1.5; }
+
+/* ====== SLIDE 4 : ALGORITHMES ====== */
+.s4 { background: linear-gradient(160deg, #07100d 0%, #4a2010 100%); }
+
+.struct-box {
+    margin: 10px 40px;
+    background: rgba(18, 32, 26, 0.7);
+    border: 1px solid #5aad60;
+    border-radius: 8px;
+    padding: 10px 16px;
+}
+.struct-box .code { font-family: monospace; font-size: 13px; color: #5aad60; }
+.struct-box .legend { font-size: 12px; color: #80a080; margin-top: 4px; }
+
+.algo-list { padding: 8px 40px; display: flex; flex-direction: column; gap: 8px; }
+.algo-item { display: flex; gap: 0; }
+.algo-name {
+    background: rgba(18, 32, 26, 0.8);
+    border: 1px solid #5aad60;
+    border-radius: 6px 0 0 6px;
+    padding: 8px 14px;
+    font-family: monospace;
+    font-size: 12px;
+    color: #5aad60;
+    min-width: 220px;
+    display: flex; align-items: center;
+}
+.algo-desc {
+    background: rgba(74, 36, 22, 0.4);
+    border: 1px solid #5d3218;
+    border-left: none;
+    border-radius: 0 6px 6px 0;
+    padding: 8px 14px;
+    font-size: 12px;
+    color: #e8c88a;
+    flex: 1;
+    display: flex; align-items: center;
+}
+
+.complexity-box {
+    margin: 10px 40px;
+    padding: 10px 16px;
+    background: rgba(10, 22, 10, 0.6);
+    border: 1px solid #5aad60;
+    border-radius: 8px;
+    font-size: 12px;
+    color: #e8c88a;
+}
+.complexity-box span { color: #5aad60; font-weight: 700; }
+
+/* ====== SLIDE 5 : ARCHITECTURE ====== */
+.s5 { background: linear-gradient(160deg, #4a2010 0%, #07100d 60%); }
+
+.arch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 12px 40px 0 40px; }
+.arch-card {
+    background: rgba(74, 36, 22, 0.4);
+    border: 1px solid #5d3218;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.arch-card-head {
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 700;
+    border-bottom: 1px solid #5d3218;
+}
+.head-local { background: rgba(232, 160, 69, 0.15); color: #e8a045; }
+.head-dist { background: rgba(90, 173, 96, 0.15); color: #5aad60; }
+.arch-body { padding: 12px 16px; }
+.arch-body pre {
+    font-family: monospace;
+    font-size: 11px;
+    color: #e8c88a;
+    line-height: 1.6;
+    white-space: pre-wrap;
+}
+
+/* ====== SLIDE 6 : DEPLOIEMENT ====== */
+.s6 { background: linear-gradient(160deg, #07100d 0%, #4a2010 100%); }
+
+.steps { padding: 12px 40px; display: flex; flex-direction: column; gap: 10px; }
+.step { display: flex; gap: 0; align-items: stretch; }
+.step-num {
+    background: #ffca40;
+    color: #07100d;
+    width: 50px; min-width: 50px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: 900;
+    border-radius: 8px 0 0 8px;
+}
+.step-body {
+    background: rgba(74, 36, 22, 0.4);
+    border: 1px solid #5d3218;
+    border-left: none;
+    border-radius: 0 8px 8px 0;
+    padding: 8px 16px;
+    flex: 1;
+}
+.step-body strong { color: #e8c88a; font-size: 14px; }
+.step-body span { display: block; color: #80a080; font-size: 12px; margin-top: 2px; }
+
+.debug-box {
+    margin: 10px 40px;
+    padding: 10px 16px;
+    background: rgba(10, 22, 10, 0.6);
+    border: 1px solid #5aad60;
+    border-radius: 8px;
+    font-size: 11px;
+    color: #e8c88a;
+}
+.debug-box b { color: #5aad60; }
+
+/* ====== SLIDE 7 : CONCLUSION ====== */
+.s7 { background: radial-gradient(ellipse at 50% 20%, #4a2010 0%, #07100d 70%); justify-content: center; }
+
+.conclu-title { text-align: center; padding: 16px; font-size: 32px; font-weight: 700; color: #ffca40; }
+.conclu-divider { height: 3px; width: 200px; background: linear-gradient(90deg, transparent, #e8a045, transparent); margin: 0 auto 16px auto; }
+
+.conclu-grid { display: flex; flex-direction: column; gap: 10px; padding: 0 150px; }
+.conclu-item {
+    display: flex;
+    align-items: center;
+    background: rgba(74, 36, 22, 0.4);
+    border: 1px solid #5d3218;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.conclu-icon {
+    background: rgba(90, 173, 96, 0.25);
+    border-right: 1px solid #5aad60;
+    min-width: 48px;
+    padding: 12px 0;
+    text-align: center;
+    font-size: 18px;
+    color: #5aad60;
+}
+.conclu-text { padding: 6px 16px; }
+.conclu-text strong { color: #e8a045; font-size: 13px; }
+.conclu-text span { display: block; color: #e8c88a; font-size: 12px; }
+
+.conclu-footer { text-align: center; padding-top: 16px; font-size: 13px; color: #e8a045; font-weight: 700; }
+
+@media print {
+    body { background: white; }
+    .slide { margin: 0; page-break-after: always; break-after: page; box-shadow: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1 : TITRE -->
+<div class="slide s1">
+    <div class="top-bar"></div>
+    <div class="card">
+        <div class="game-title">SONGO</div>
+        <div class="subtitle">Jeu de Strategie Traditionnel Africain</div>
+        <div class="divider"></div>
+        <div class="author">MOAKO EKANGO BILL ARMEL &nbsp;—&nbsp; Matricule : 24F2686</div>
+        <div class="module">Programmation Web &nbsp;|&nbsp; Implementation JavaScript &amp; PHP &nbsp;|&nbsp; Juin 2026</div>
+    </div>
+    <div class="bot-bar"></div>
+    <div class="slide-num">1 / 7</div>
+</div>
+
+<!-- SLIDE 2 : PLAN -->
+<div class="slide s2">
+    <div class="top-bar"></div>
+    <div class="slide-header">
+        <h2>Plan de Presentation</h2>
+        <div class="underline"></div>
+    </div>
+    <div class="plan-items">
+        <div class="plan-item">
+            <div class="plan-num">01</div>
+            <div class="plan-text">
+                <strong>Fonctionnement du Jeu</strong>
+                <span>Regles, plateau, captures, solidarite, fin de partie</span>
+            </div>
+        </div>
+        <div class="plan-item">
+            <div class="plan-num">02</div>
+            <div class="plan-text">
+                <strong>Principes Algorithmiques</strong>
+                <span>Tableau circulaire lineaire, navigation par index, algorithmes de distribution et capture</span>
+            </div>
+        </div>
+        <div class="plan-item">
+            <div class="plan-num">03</div>
+            <div class="plan-text">
+                <strong>Architecture du Code</strong>
+                <span>Separation UI / Logique metier, version locale et version distante (reseau)</span>
+            </div>
+        </div>
+        <div class="plan-item">
+            <div class="plan-num">04</div>
+            <div class="plan-text">
+                <strong>Guide de Deploiement XAMPP</strong>
+                <span>Installation, configuration, test multijoueur en reseau local</span>
+            </div>
+        </div>
+    </div>
+    <div class="bot-bar"></div>
+    <div class="slide-num">2 / 7</div>
+</div>
+
+<!-- SLIDE 3 : FONCTIONNEMENT -->
+<div class="slide s3">
+    <div class="top-bar"></div>
+    <div class="left-bar"></div>
+    <div class="slide-header" style="padding-top:14px;">
+        <h2 style="font-size:24px;">01 &nbsp;— Fonctionnement du Jeu</h2>
+        <div class="underline" style="width:260px;"></div>
+    </div>
+
+    <div class="plateau-schema">
+        <div class="board-label" style="color:#5aad60;">← → CAMP NORD (Joueur 2)</div>
+        <div class="board-row">
+            <div class="board-case nord">[7]</div>
+            <div class="board-case nord">[8]</div>
+            <div class="board-case nord">[9]</div>
+            <div class="board-case nord">[10]</div>
+            <div class="board-case nord">[11]</div>
+            <div class="board-case nord">[12]</div>
+            <div class="board-case nord">[13]</div>
+        </div>
+        <div class="board-row" style="margin-top:5px;">
+            <div class="board-case sud">[0]</div>
+            <div class="board-case sud">[1]</div>
+            <div class="board-case sud">[2]</div>
+            <div class="board-case sud">[3]</div>
+            <div class="board-case sud">[4]</div>
+            <div class="board-case sud">[5]</div>
+            <div class="board-case sud">[6]</div>
+        </div>
+        <div class="board-label" style="color:#e8a045;">CAMP SUD (Joueur 1) → ←</div>
+    </div>
+
+    <div class="rules-grid">
+        <div class="rule-card">
+            <h4>🌾 But du Jeu</h4>
+            <p>Capturer 40 graines = victoire. Match nul si le plateau a moins de 10 graines. 70 graines au depart (14 cases x 5).</p>
+        </div>
+        <div class="rule-card">
+            <h4>🔄 Distribution</h4>
+            <p>Sens anti-horaire. Dans son camp : droite a gauche. Chez l'adversaire : gauche a droite.</p>
+        </div>
+        <div class="rule-card">
+            <h4>⚡ Captures</h4>
+            <p>Derniere graine => case adverse avec 2, 3 ou 4 graines : on prend tout. Capture en chaine retrograde.</p>
+        </div>
+        <div class="rule-card">
+            <h4>🤝 Solidarite + Interdits</h4>
+            <p>Camp adverse vide : envoyer &ge;7 graines. Case 7 : interdit de jouer 1 ou 2. Famine : interdite.</p>
+        </div>
+    </div>
+
+    <div class="right-bar"></div>
+    <div class="bot-bar"></div>
+    <div class="slide-num">3 / 7</div>
+</div>
+
+<!-- SLIDE 4 : ALGORITHMES -->
+<div class="slide s4">
+    <div class="top-bar"></div>
+    <div class="left-bar"></div>
+    <div class="slide-header" style="padding-top:14px;">
+        <h2 style="font-size:24px;">02 &nbsp;— Principes Algorithmiques</h2>
+        <div class="underline" style="width:300px; background:#5aad60;"></div>
+    </div>
+
+    <div class="struct-box">
+        <div class="code">plateau[  0  1  2  3  4  5  6  |  7  8  9  10  11  12  13  ]</div>
+        <div class="legend">|——————— Joueur 1 (Sud) ————————|——————— Joueur 2 (Nord) ————————|  &nbsp; Acces O(1). Circularite simulee par les fonctions de navigation.</div>
+    </div>
+
+    <div class="algo-list">
+        <div class="algo-item">
+            <div class="algo-name">caseSuivante(idx)</div>
+            <div class="algo-desc">Sens anti-horaire : Sud => idx-1 (jonction 0->7). Nord => idx+1 (jonction 13->6).</div>
+        </div>
+        <div class="algo-item">
+            <div class="algo-name">casePrecedente(idx)</div>
+            <div class="algo-desc">Sens inverse pour remonter les captures en chaine retrograde.</div>
+        </div>
+        <div class="algo-item">
+            <div class="algo-name">getLegalMoves()</div>
+            <div class="algo-desc">Retourne les coups autorises. Filtre case 7, applique la solidarite. O(14) = O(1).</div>
+        </div>
+        <div class="algo-item">
+            <div class="algo-name">calcEnvoi(depart)</div>
+            <div class="algo-desc">PREVISIONNEL : simule la distribution sans modifier le plateau. Permet de filtrer avant de jouer.</div>
+        </div>
+        <div class="algo-item">
+            <div class="algo-name">faireCoup(idx)</div>
+            <div class="algo-desc">Distribution + verification captures + anti-famine. Async/await pour animation graine par graine.</div>
+        </div>
+    </div>
+
+    <div class="complexity-box">
+        <span>Complexite :</span> Distribution O(n) ou n = graines. &nbsp;|&nbsp; Coups legaux O(1). &nbsp;|&nbsp; Captures O(7) = O(1). &nbsp;|&nbsp; Fin de partie O(1).
+    </div>
+
+    <div class="right-bar"></div>
+    <div class="bot-bar"></div>
+    <div class="slide-num">4 / 7</div>
+</div>
+
+<!-- SLIDE 5 : ARCHITECTURE -->
+<div class="slide s5">
+    <div class="top-bar"></div>
+    <div class="left-bar"></div>
+    <div class="slide-header" style="padding-top:14px;">
+        <h2 style="font-size:24px;">03 &nbsp;— Architecture du Code</h2>
+        <div class="underline" style="width:300px;"></div>
+    </div>
+
+    <div class="arch-grid">
+        <div class="arch-card">
+            <div class="arch-card-head head-local">VERSION LOCALE &nbsp;(songo_local/)</div>
+            <div class="arch-body">
+<pre>index.html  → Structure HTML uniquement
+style.css   → Visuel bois, animations
+app.js      → Logique + UI (tout-en-un)
+
+FLUX D'EXECUTION :
+Clic → clicAction(index)
+  ├─ getLegalMoves()   [LOGIQUE PURE]
+  ├─ faireCoup()       [LOGIQUE PURE]
+  └─ redraw()          [UI / DOM]
+
+ANIMATION async/await :
+setTimeout(400ms) apres chaque graine
+=> Jeu monojoueur en local</pre>
+            </div>
+        </div>
+        <div class="arch-card">
+            <div class="arch-card-head head-dist">VERSION DISTANTE &nbsp;(songo_distant/)</div>
+            <div class="arch-body">
+<pre>NAVIGATEUR (2 joueurs)
+  app.js → sendData() via Fetch API
+      | HTTP GET/POST
+      v
+  SERVEUR Apache / PHP
+  server.php → Logique + Regles
+  etat_jeu.json → Etat partage
+
+API : 6 actions
+  rejoindre / etat / pret
+  jouer / reinitialiser / ajouter_graines
+
+Polling 1,5s + LOCK_EX JSON
+=> Multijoueur reseau local</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-bar"></div>
+    <div class="bot-bar"></div>
+    <div class="slide-num">5 / 7</div>
+</div>
+
+<!-- SLIDE 6 : DEPLOIEMENT -->
+<div class="slide s6">
+    <div class="top-bar"></div>
+    <div class="left-bar"></div>
+    <div class="slide-header" style="padding-top:14px;">
+        <h2 style="font-size:24px;">04 &nbsp;— Guide de Deploiement sur XAMPP</h2>
+        <div class="underline" style="width:400px; background:#5aad60;"></div>
+    </div>
+
+    <div class="steps">
+        <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+                <strong>Installer XAMPP</strong>
+                <span>Telecharger depuis apachefriends.org — activer le module Apache (PHP inclus)</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+                <strong>Copier les fichiers</strong>
+                <span>Placer le dossier songo_distant/ dans &nbsp; C:\xampp\htdocs\</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+                <strong>Demarrer Apache</strong>
+                <span>Panneau XAMPP → bouton [Start] en face d'Apache — le voyant passe au vert</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-body">
+                <strong>Tester en local</strong>
+                <span>Ouvrir : &nbsp; http://localhost/songo_distant/ &nbsp; dans le navigateur</span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-body">
+                <strong>Multijoueur (2 machines)</strong>
+                <span>Machine 2 : http://[IP_LAN_serveur]/songo_distant/ — trouver l'IP avec ipconfig</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="debug-box">
+        <b>Depannage :</b> &nbsp; Page blanche = verifier le chemin htdocs/songo_distant/ &nbsp;|&nbsp; Erreur JSON = droits ecriture sur le dossier &nbsp;|&nbsp; J2 invisible = utiliser IP LAN
+    </div>
+
+    <div class="right-bar"></div>
+    <div class="bot-bar"></div>
+    <div class="slide-num">6 / 7</div>
+</div>
+
+<!-- SLIDE 7 : CONCLUSION -->
+<div class="slide s7">
+    <div class="top-bar"></div>
+    <div class="conclu-title">Conclusion</div>
+    <div class="conclu-divider"></div>
+
+    <div class="conclu-grid">
+        <div class="conclu-item">
+            <div class="conclu-icon">✔</div>
+            <div class="conclu-text">
+                <strong>Version Locale</strong>
+                <span>Jeu solo complet — toutes les regles du Songo implementees</span>
+            </div>
+        </div>
+        <div class="conclu-item">
+            <div class="conclu-icon">✔</div>
+            <div class="conclu-text">
+                <strong>Version Distante</strong>
+                <span>Multijoueur reseau via PHP/JSON — deploye sur XAMPP</span>
+            </div>
+        </div>
+        <div class="conclu-item">
+            <div class="conclu-icon">✔</div>
+            <div class="conclu-text">
+                <strong>Architecture propre</strong>
+                <span>Separation UI / Logique metier — code commente et personnalise</span>
+            </div>
+        </div>
+        <div class="conclu-item">
+            <div class="conclu-icon">✔</div>
+            <div class="conclu-text">
+                <strong>Rapport technique complet</strong>
+                <span>Algorithmes, structures de donnees, guide deploiement rediges</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="conclu-footer">MOAKO EKANGO BILL ARMEL &nbsp;—&nbsp; Matricule : 24F2686 &nbsp;—&nbsp; Juin 2026</div>
+
+    <div class="bot-bar"></div>
+    <div class="slide-num">7 / 7</div>
+</div>
+
+</body>
+</html>
